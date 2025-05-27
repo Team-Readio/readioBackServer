@@ -1,6 +1,5 @@
 package com.team.teamreadioserver.postReview.service;
 
-import com.team.teamreadioserver.post.service.PostService;
 import com.team.teamreadioserver.postReview.repository.PostReviewRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

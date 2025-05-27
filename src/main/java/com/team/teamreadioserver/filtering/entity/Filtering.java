@@ -1,14 +1,15 @@
 package com.team.teamreadioserver.filtering.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "filtering")
 @Getter
 @ToString
 @RequiredArgsConstructor
-@AllArgsConstructor
 public class Filtering {
 
     @Id
@@ -24,5 +25,8 @@ public class Filtering {
 
     @Column(name = "keyword")
     private String keyword;
+
+    @Column(name = "is_active")
+    private String isActive;
 
 }

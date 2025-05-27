@@ -9,4 +9,5 @@ public class TeamReadioServerApplication {
     public static void main(String[] args) {
         SpringApplication.run(TeamReadioServerApplication.class, args);
     }
+
 }

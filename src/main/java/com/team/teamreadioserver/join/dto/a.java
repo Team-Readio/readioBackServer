@@ -1,4 +1,4 @@
-package com.team.readioserver.join.dto;
+package com.team.teamreadioserver.join.dto;
 
 public class a {
     public static void main(String[] args) {

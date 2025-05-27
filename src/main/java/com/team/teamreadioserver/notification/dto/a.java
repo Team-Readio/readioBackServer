@@ -1,4 +1,4 @@
-package com.team.readioserver.notification.dto;
+package com.team.teamreadioserver.notification.dto;
 
 public class a {
     public static void main(String[] args) {

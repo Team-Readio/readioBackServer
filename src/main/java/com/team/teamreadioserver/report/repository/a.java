@@ -1,4 +1,4 @@
-package com.team.readioserver.report.repository;
+package com.team.teamreadioserver.report.repository;
 
 public class a {
     public static void main(String[] args) {

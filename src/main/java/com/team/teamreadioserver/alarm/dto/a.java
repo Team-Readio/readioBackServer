@@ -1,4 +1,4 @@
-package com.team.readioserver.alarm.dto;
+package com.team.teamreadioserver.alarm.dto;
 
 public class a {
     public static void main(String[] args) {

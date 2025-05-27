@@ -1,4 +1,4 @@
-package com.team.readioserver.login.entity;
+package com.team.teamreadioserver.login.entity;
 
 public class a {
     public static void main(String[] args) {

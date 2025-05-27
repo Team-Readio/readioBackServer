@@ -68,4 +68,5 @@ public class PostController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "포스트 삭제 완료", postService.DeletePost(postId)));
     }
 
+
 }

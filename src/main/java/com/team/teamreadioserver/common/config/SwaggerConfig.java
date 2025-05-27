@@ -14,8 +14,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * */
 @OpenAPIDefinition(
 		info = @Info(title = "readio",
-					 description = "React부터 Spring Data Jpa까지 진행하는 서비스 API 명세서",
-					 version = "v1"))
+				description = "React부터 Spring Data Jpa까지 진행하는 서비스 API 명세서",
+				version = "v1"))
 @Configuration
 public class SwaggerConfig {
 
@@ -42,7 +42,6 @@ public class SwaggerConfig {
 		};
 	}
 }
-
 
 
 

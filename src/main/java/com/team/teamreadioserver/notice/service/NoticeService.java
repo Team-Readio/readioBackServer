@@ -7,8 +7,11 @@ import com.team.teamreadioserver.notice.dto.NoticeUpdateDTO;
 import com.team.teamreadioserver.notice.entity.Notice;
 import com.team.teamreadioserver.notice.entity.NoticeImg;
 import com.team.teamreadioserver.notice.repository.NoticeRepository;
+import com.team.teamreadioserver.user.entity.User;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,11 +37,12 @@ public class NoticeService {
                 .collect(Collectors.toList());
     }
 
-    public void writeNotice(NoticeRequestDTO requestDTO) {
+    public void writeNotice(NoticeRequestDTO requestDTO, User currentUser) {
         Notice notice = Notice.builder()
                 .noticeTitle(requestDTO.getNoticeTitle())
                 .noticeContent(requestDTO.getNoticeContent())
                 .noticeState(requestDTO.getNoticeState())
+                .userId(currentUser)
                 .build();
 
         if(requestDTO.getNoticeImg() != null) {
@@ -48,23 +52,22 @@ public class NoticeService {
 
             notice.setNoticeImg(img);
         }
-
-
-
         noticeRepository.save(notice);
     }
     @Transactional
-    public void updateNotice(NoticeUpdateDTO updateDTO) {
+    public void updateNotice(NoticeUpdateDTO updateDTO, User currentUser) {
         Notice notice = noticeRepository.findById(updateDTO.getNoticeId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 공지사항이 없습니다."));
 
+        if(!notice.getUserId().getUserId().equals(currentUser.getUserId())) {
+            throw new IllegalArgumentException("수정 권한이 없습니다.");
+        }
         NoticeImg img = null;
         if (updateDTO.getNoticeImg() != null) {
             img = new NoticeImg();
             img.setOriginalName(updateDTO.getNoticeImg().getOriginalName());
             img.setSavedName(updateDTO.getNoticeImg().getSavedName());
         }
-
         notice.update(
                 updateDTO.getNoticeTitle(),
                 updateDTO.getNoticeContent(),
@@ -74,10 +77,13 @@ public class NoticeService {
     }
 
     @Transactional
-    public void deleteNotice(Integer noticeId) {
+    public void deleteNotice(Integer noticeId, User currentUser) {
         Notice notice = noticeRepository.findById(noticeId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 공지사항이 없습니다."));
 
+        if(!notice.getUserId().getUserId().equals(currentUser.getUserId())) {
+            throw new IllegalArgumentException("삭제 권한이 없습니다.");
+        }
         noticeRepository.delete(notice);
     }
 
@@ -95,5 +101,8 @@ public class NoticeService {
                 .collect(Collectors.toList());
     }
 
-
+    public Page<NoticeResponseDTO> getPagedNoticeList(Pageable pageable) {
+        Page<Notice> noticePage = noticeRepository.findAll(pageable);
+        return noticePage.map(NoticeResponseDTO::fromEntity);
+    }
 }

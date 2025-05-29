@@ -1,7 +1,8 @@
 package com.team.teamreadioserver.notice.entity;
 
 import com.team.teamreadioserver.notice.enumPackage.NoticeState;
-import io.swagger.v3.oas.annotations.info.Info;
+
+import com.team.teamreadioserver.user.entity.User;
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -9,7 +10,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Builder
@@ -43,12 +43,12 @@ public class Notice {
     @OneToOne(mappedBy = "notice", fetch = FetchType.LAZY, cascade = CascadeType.ALL) //fetch 노란줄 무시해도 괜찮음
     private NoticeImg noticeImg;
 
-    @Column(name = ("user_id"))
-    private String userId;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="user_id", referencedColumnName = "user_id", nullable = false)
+    private User userId;
 
     @PrePersist
     public void prePersist() {
-        this.userId = "test2";
         this.noticeCreateAt = LocalDateTime.now();
         this.noticeView = 0;
     }

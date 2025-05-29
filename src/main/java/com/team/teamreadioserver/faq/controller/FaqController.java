@@ -21,7 +21,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/serviceCenter")
-public class FaqController {
+public class
+FaqController {
     @Autowired
     private FaqService faqService;
     @Autowired

@@ -52,4 +52,7 @@ public interface UserMapper {
   /** 회원탈퇴 **/
   int deleteUserById(@Param("userId") String userId);
 
+  /*카카오 로그인*/
+  int insertUserEntity(User user);
+
 }

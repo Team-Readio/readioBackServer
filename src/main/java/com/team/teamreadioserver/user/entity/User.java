@@ -29,7 +29,7 @@ public class User {
   @Column(name = "user_name", nullable = false, length = 30)
   private String userName;
 
-  @Column(name = "user_pwd", nullable = false)
+  @Column(name = "user_pwd")  // NOTNULL 풀어놨음
   private String userPwd;
 
   @Column(name = "user_email", nullable = false)
@@ -44,5 +44,11 @@ public class User {
   @Column(name = "user_enrolldate", nullable = false)
   private LocalDateTime userEnrollDate;
 
+  // ✅ 추가된 소셜 로그인 관련 필드
+  @Column(name = "is_social", nullable = false)
+  private boolean isSocial;
+
+  @Column(name = "social_provider", length = 30)
+  private String socialProvider;
 
 }

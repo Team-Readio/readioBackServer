@@ -6,6 +6,7 @@ import com.team.teamreadioserver.user.dto.LoginRequestDTO;
 import com.team.teamreadioserver.user.dto.UserInfoResponseDTO;
 import com.team.teamreadioserver.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ import java.util.Map;
 //로그인 컨트롤러 (로그인 엔드포인트)
 @RestController
 @RequestMapping("/users")
+@Tag(name = "회원 API", description = "회원 로그인 API")
 public class AuthController {
 
   private static final Logger logger = LoggerFactory.getLogger(AuthController.class); // Logger 인스턴스 생성

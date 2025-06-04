@@ -13,12 +13,16 @@
         <result property="userPhone" column="user_phone"/>
         <result property="userBirthday" column="user_birthday"/>
         <result property="userEnrolldate" column="user_enrolldate"/>
+        <result property="isSocial" column="is_social"/>
+        <result property="socialProvider" column="social_provider"/>
     </resultMap>
 
+    <!--회원가입-->
     <insert id="insertUser" parameterType="com.team.teamreadioserver.user.dto.JoinRequestDTO">
         INSERT INTO user (user_id, user_role, user_name, user_pwd, user_email, user_phone, user_birthday,
-                          user_enrolldate)
-        VALUES (#{userId}, 'USER', #{userName}, #{userPwd}, #{userEmail}, #{userPhone}, #{userBirthday}, NOW())
+                          user_enrolldate, is_social, social_provider)
+        VALUES (#{userId}, 'USER', #{userName}, #{userPwd}, #{userEmail}, #{userPhone}, #{userBirthday}, NOW(),
+                   , is_social, social_provider)
     </insert>
 
     <select id="countByUserId" parameterType="string" resultType="int">
@@ -47,7 +51,9 @@
                user_email,
                user_phone,
                user_birthday,
-               user_enrolldate as userEnrollDate
+               user_enrolldate as userEnrollDate,
+               is_social,
+               social_provider
         FROM `user`
         WHERE user_id = #{userId}
     </select>
@@ -100,14 +106,16 @@
 
     <!--회원정보 수정 시 이메일 중복확인-->
     <select id="countByEmailExceptSelf" resultType="int">
-        SELECT COUNT(*) FROM user
+        SELECT COUNT(*)
+        FROM user
         WHERE user_email = #{userEmail}
           AND user_id != #{currentUserId}
     </select>
 
     <!--회원정보 수정 시 전화번호 중복확인-->
     <select id="countByPhoneExceptSelf" resultType="int">
-        SELECT COUNT(*) FROM user
+        SELECT COUNT(*)
+        FROM user
         WHERE user_phone = #{userPhone}
           AND user_id != #{currentUserId}
     </select>
@@ -122,12 +130,10 @@
 
     <!--비밀번호 찾기(아이디와 이메일 일치여부 확인 후 인증번호 발송 가능)-->
     <select id="existsByUserIdAndEmail" resultType="int">
-        SELECT EXISTS(
-            SELECT 1
-            FROM `user`
-            WHERE user_id = #{userId}
-              AND user_email = #{userEmail}
-        )
+        SELECT EXISTS(SELECT 1
+                      FROM `user`
+                      WHERE user_id = #{userId}
+                        AND user_email = #{userEmail})
     </select>
 
     <!--비밀번호 찾기(비밀번호 재설정)-->
@@ -139,10 +145,19 @@
 
     <!--회원탈퇴-->
     <delete id="deleteUserById" parameterType="String">
-        DELETE FROM `user`
+        DELETE
+        FROM `user`
         WHERE user_id = #{userId}
     </delete>
 
+
+    <!-- 카카오 로그인용 사용자 등록 -->
+    <insert id="insertUserEntity" parameterType="com.team.teamreadioserver.user.entity.User">
+        INSERT INTO user (user_id, user_role, user_name, user_pwd, user_email, user_phone, user_birthday,
+                          user_enrolldate, is_social, social_provider)
+        VALUES (#{userId}, #{userRole}, #{userName}, #{userPwd}, #{userEmail}, #{userPhone}, #{userBirthday},
+                #{userEnrollDate}, #{isSocial}, #{socialProvider})
+    </insert>
 
 
 </mapper>

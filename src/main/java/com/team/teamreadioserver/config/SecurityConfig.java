@@ -59,7 +59,7 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider())
                 .authorizeHttpRequests(auth -> auth
                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                                .requestMatchers("/users/login", "/users/join/**", "/users/account/**",
+                                .requestMatchers("/users/kakao","/users/login", "/users/join/**", "/users/account/**",
                                         "/users/sendCode", "/users/verifyUser", "/users/resetPassword",
                                         "/video/**", "/curation/**", "/img/**", "/search/**", "/bookPage/**",
                                         "/bookReview/**", "/reported/**", "/serviceCenter/**", "/videoBookmark/publicCount/**",

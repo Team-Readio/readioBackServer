@@ -20,6 +20,7 @@ public class UserInfoResponseDTO {
   private LocalDate userBirthday;
   private LocalDateTime userEnrollDate; // 가입일자(등록일) 추가
   private String userRole;
+  private Long profileId;
 
   private boolean social; // isSocial() 대응 필드명은 보통 boolean 타입으로
 
